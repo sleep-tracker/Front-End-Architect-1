@@ -6,8 +6,15 @@ export default class SignupForm extends React.Component{
         super()
 
         this.state = {
-            //
+            hoursSlept: '',
+            tiredAtBedtime: '',
+            moodWhenWaking: '',
+            overallMoodForDay: ''
         }
+    }
+
+    handleChange = e => {
+        this.setState({[e.target.name]: e.target.value})
     }
 
     render(){
@@ -15,10 +22,25 @@ export default class SignupForm extends React.Component{
             <div>
                 <h1>New Sleep Session</h1>
                 <form>
-                    <p>Bed Time: <input name='bedTime' type="time"/></p> 
-                    <p>Wake Time: <input name='wakeTime' type="time"/></p>
+                    <p>Bed Time: 
+                        <input 
+                            name='bedTime' 
+                            type="time"
+                            // value={this.state.username} 
+                            // onChange={this.state.username}
+                        />
+                    </p> 
+                    <p>Wake Time: 
+                        <input 
+                            name='wakeTime' 
+                            type="time"
+                            // value={this.state.username} 
+                            // onChange={this.state.username}
+                        />
+                    </p>
                     <p>Tired Rating at Bedtime: :) :| :( :0</p>
-                    <p>Average Mood for Day :) :| :( :0</p>
+                    <p>Mood Rating when Waking: :) :| :( :0</p>
+                    <p>Overall Mood for the Day :) :| :( :0</p>
                     <button>Enter</button>
                 </form>
             </div>
