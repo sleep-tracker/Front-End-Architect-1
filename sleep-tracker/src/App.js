@@ -12,7 +12,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Route exact path='/' component={SignupForm} />
-                <Route path component={SleepForm} />
+                <Route path='/sleepform' component={SleepForm} />
                 <Route path='/sleepview' component={SleepList} />
                 <Route path='/whysleep' component={WhySleep} />
             </div>
