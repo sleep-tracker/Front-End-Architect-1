@@ -17,11 +17,13 @@ export default class SignupForm extends React.Component{
         super()
 
         this.state = {
+            sleepDate: '',
+            wakeDate: '',
             bedTime: '',
             wakeTime: '',
-            tiredAtBedtime: '',
-            moodWhenWaking: '',
-            overallMoodForDay: ''
+            moodBefore: '',
+            moodAfter: '',
+            moodForDay: ''
         }
     }
 

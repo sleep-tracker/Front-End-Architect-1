@@ -19,14 +19,6 @@ class App extends Component {
         }
     }
 
-    // componentDidMount(){
-    //     axios.post('http://localhost:5000/????????')
-    //         .then(res => {
-    //             this.setState({ friends: res.data })
-    //         })
-    //         .catch(err => {console.error(err)})
-    // }
-
     render() {
         return (
             <div className="App">
