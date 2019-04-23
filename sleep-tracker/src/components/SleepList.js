@@ -8,8 +8,7 @@ class SleepList extends Component {
             <div>
                 <NavLink to='/sleepform'>Log New Sleep Session</NavLink>
                 <h1>Sleep Moods for the Week</h1>
-                <ul>
-                    {this.props.sleepSessions.map( session => {
+                    {/* {this.props.sleepSessions.map( session => {
                         return (
                             <SleepSession
                                 hours={session.hours}
@@ -17,8 +16,7 @@ class SleepList extends Component {
                                 session={session}
                             />
                         )
-                    } )}
-                </ul>
+                    } )} */}
             </div>
         )
     }

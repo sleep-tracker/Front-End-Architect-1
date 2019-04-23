@@ -1,11 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 
+import axiosConfig from './AxiosConfig'
+
 export default class SignupForm extends React.Component{
 
     state = {
-        username: '',
-        password: ''
+        email: '',
+        password: '',
+        name: '',
+        lastName: '',
+        age: 99
     }
 
     handleChange = e => {
@@ -14,28 +19,51 @@ export default class SignupForm extends React.Component{
 
     login = e => {
         e.preventDefault()
-        localStorage.setItem("username", this.state.username)
-        localStorage.setItem("password", this.state.password)
-        this.setState({username: '', password: ''})
+        console.log(this.state);
+        
+        axios.post('http://localhost:5000/api/auth/register', axiosConfig, this.state)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     render(){
         return(
             <div>
                 <h1>Sign In</h1>
-                <form onSubmit={e => this.login(e)}>
-                    <p>Name: <input 
-                                    name='name' 
-                                    type="text"
-                                    value={this.state.username} 
-                                    onChange={this.state.username} 
-                                />
-                                </p>
+                <form onSubmit={this.login}>
                     <p>Email: <input 
                                     name='email' 
-                                    type="email"
+                                    type="text"
+                                    value={this.state.email} 
+                                    onChange={this.handleChange} 
+                                />
+                                </p>
+                    <p>Password: <input 
+                                    name='password' 
+                                    type="text"
                                     value={this.state.password} 
-                                    onChange={this.state.password} 
+                                    onChange={this.handleChange} 
+                                />
+                            </p>
+                    <p>First Name: <input 
+                                    name='name' 
+                                    type="text"
+                                    value={this.state.name} 
+                                    onChange={this.handleChange} 
+                                />
+                            </p>
+                    <p>Last Name: <input 
+                                    name='lastName' 
+                                    type="text"
+                                    value={this.state.lastName} 
+                                    onChange={this.handleChange} 
+                                />
+                            </p>
+                    <p>Age: <input 
+                                    name='age' 
+                                    type="number"
+                                    value={this.state.age} 
+                                    onChange={this.handleChange} 
                                 />
                             </p>
                     <button>Login</button>

@@ -38,7 +38,7 @@ export default class SignupForm extends React.Component{
                             // onChange={this.state.username}
                         />
                     </p>
-                    <p>Tired Rating at Bedtime: :) :| :( :0</p>
+                    <p>Tired Rating at Bedtime: <img src="./img/1.png" alt="really happy"/> :| :( :0</p>
                     <p>Mood Rating when Waking: :) :| :( :0</p>
                     <p>Overall Mood for the Day :) :| :( :0</p>
                     <button>Enter</button>
