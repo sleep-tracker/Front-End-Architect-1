@@ -29,13 +29,13 @@ export default class SignupForm extends React.Component{
             .then(res => console.log(res))
             .catch(err => console.log(err))
 
-            this.setState = {
-                bedTime: '',
-                wakeTime: '',
-                tiredAtBedtime: '',
-                moodWhenWaking: '',
-                overallMoodForDay: ''
-            }
+        this.setState = {
+            bedTime: '',
+            wakeTime: '',
+            tiredAtBedtime: '',
+            moodWhenWaking: '',
+            overallMoodForDay: ''
+        }
     }
 
     render(){
