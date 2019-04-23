@@ -23,11 +23,9 @@ class LoginForm extends React.Component{
 
         axios.post('http://localhost:5000/api/auth/login', this.state, axiosConfig)
             .then(res => {localStorage.setItem('token', res.data.token)})
-            .catch(err => console.log(err)
-            )
+            .catch(err => console.log(err))
 
             this.props.history.push("/sleepview")
-
     }
 
 

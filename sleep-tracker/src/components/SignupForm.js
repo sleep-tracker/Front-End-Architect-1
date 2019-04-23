@@ -70,7 +70,7 @@ export default class SignupForm extends React.Component{
                                     onChange={this.handleChange} 
                                 />
                             </p>
-                    <button>Login</button>
+                    <button type='submit'>Login</button>
                 </form>
             </div>
         )
