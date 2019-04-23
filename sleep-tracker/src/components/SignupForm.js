@@ -30,6 +30,7 @@ export default class SignupForm extends React.Component{
         return(
             <div>
                 <h1>Sign In</h1>
+                
                 <form onSubmit={this.login}>
                     <p>Email: <input 
                                     name='email' 

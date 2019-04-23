@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const SleepSession = (props) => {
     return(
         <div>
-            <p>Hours: {props.hours}</p>
+            <p>Hours Slept: {props.session.hours}</p>
         </div>
     )
 }

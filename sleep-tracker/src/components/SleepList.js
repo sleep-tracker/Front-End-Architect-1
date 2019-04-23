@@ -1,8 +1,24 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios';
 import SleepSession from './SleepSession'
 
 class SleepList extends Component {
+    constructor(){
+        super()
+
+        this.state = {
+            sleepSessions: []
+        }
+    }
+    componentDidMount(){
+        axios.get('http://localhost:5000/api/users')
+            .then(res => {
+                this.setState({ sleepSessions: res.data })
+            })
+            .catch(err => {console.error(err)})
+    }
+
     render() {
         return (
             <div>
@@ -11,7 +27,6 @@ class SleepList extends Component {
                     {/* {this.props.sleepSessions.map( session => {
                         return (
                             <SleepSession
-                                hours={session.hours}
                                 key={session.id}
                                 session={session}
                             />
