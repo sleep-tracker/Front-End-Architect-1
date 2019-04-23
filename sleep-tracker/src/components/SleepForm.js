@@ -1,5 +1,5 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'
+import axios from 'axios'
 
 export default class SignupForm extends React.Component{
     constructor(){
@@ -40,7 +40,7 @@ export default class SignupForm extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className='sleepform'>
                 <h1>New Sleep Session</h1>
                 <form onSubmit={this.sendSleepInfo}>
                     <p>Bed Time: 
