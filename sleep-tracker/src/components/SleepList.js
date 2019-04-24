@@ -6,6 +6,7 @@ import styled from 'styled-components'
 // import SleepSession from './SleepSession'
 
 import {dummyData} from '../dummydata'
+import SleepForm from './SleepForm'
 
 import axiosConfig from './AxiosConfig'
 
@@ -14,6 +15,10 @@ const SleepCard = styled.div`
     width: 200px;
     margin-bottom: 10px;
 `
+const SleepCardContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+`
 
 class SleepList extends Component {
     constructor() {
@@ -21,36 +26,40 @@ class SleepList extends Component {
 
         this.state = {
             userArray: [],
-            dummyArray: dummyData
+            dummyArray: []
         }
     }
     componentDidMount() {
-        axios.get( 'http://localhost:5000/api/users', axiosConfig )
+        axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users', axiosConfig )
             .then( res => {
-                this.setState( { sleepSessions: res.data } )
+                this.setState( { sleepSessions: res.data, dummyArray: dummyData } )
             } )
             .catch( err => { console.error( err ) } )
     }
 
+    addNewSleepCard = newCard => {}
+
     render() {
         return (
             <div>
-                <NavLink to='/sleepform'>Log New Sleep Session</NavLink>
+                {/* <NavLink to='/sleepform'>Log New Sleep Session</NavLink> */}
                 <h1>List of Sleep Data for the Week</h1>
-                <div>
+                <SleepCardContainer>
                     {this.state.dummyArray.map( session => (
                         <SleepCard>
-                            <p>{session.sleepDate}</p>
-                            <p>{session.wakeDate}</p>
-                            <p>{session.bedTime}</p>
-                            <p>{session.wakeTime}</p>
-                            <p>{session.moodBefore}</p>
-                            <p>{session.moodAfter}</p>
-                            <p>{session.moodForDay}</p>
+                            <p>sleep date: {session.sleepDate}</p>
+                            <p>wake date: {session.wakeDate}</p>
+                            <p>bed time: {session.sleepTime}</p>
+                            <p>wake time: {session.wakeTime}</p>
+                            <p>mood before: {session.moodBefore}</p>
+                            <p>mood after: {session.moodAfter}</p>
+                            <p>mood all day: {session.moodForDay}</p>
                         </SleepCard>
                     )
                     )}
-                </div>
+                </SleepCardContainer>
+                <hr/>
+                <SleepForm dummyArray={this.state.dummyArray} addNewSleepCard={this.addNewSleepCard} />
             </div>
         )
     }

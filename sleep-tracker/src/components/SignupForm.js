@@ -22,7 +22,7 @@ export default class SignupForm extends React.Component{
         e.preventDefault()
         console.log(this.state);
         
-        axios.post('http://localhost:5000/api/auth/register', this.state)//, axiosConfig
+        axios.post('https://build-week-sleep-tracker.herokuapp.com/api/auth/register', this.state)//, axiosConfig
             .then(res => console.log(res))
             .catch(err => console.log(err))
 

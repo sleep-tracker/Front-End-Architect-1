@@ -21,11 +21,11 @@ class LoginForm extends React.Component{
     login = e => {
         e.preventDefault()
 
-        axios.post('http://localhost:5000/api/auth/login', this.state, axiosConfig)
+        axios.post('https://build-week-sleep-tracker.herokuapp.com/api/auth/login', this.state, axiosConfig)
             .then(res => {localStorage.setItem('token', res.data.token)})
             .catch(err => console.log(err))
 
-            this.props.history.push("/sleepview")
+        this.props.history.push("/sleepview")
     }
 
 
