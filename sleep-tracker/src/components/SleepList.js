@@ -30,7 +30,7 @@ class SleepList extends Component {
         super()
 
         this.state = {
-            userArray: [],
+            dataArray: [],
             dummyArray: []
         }
     }
@@ -39,7 +39,7 @@ class SleepList extends Component {
             .then( res => {
                 console.log(res);
                 
-                this.setState( { sleepSessions: res.data, dummyArray: dummyData } )
+                this.setState( { dataArray: res.data[0].data, dummyArray: dummyData } )
             } )
             .catch( err => { console.error( err ) } )
     }
@@ -51,7 +51,9 @@ class SleepList extends Component {
     }
 
     render() {
-        console.log(this.state.userArray);
+        console.log(this.state.dataArray);
+        console.log(this.state.sleepSessions);
+        
         
         return (
             <div>
@@ -60,10 +62,9 @@ class SleepList extends Component {
                 <h1>List of Sleep Data for the Week</h1>
                 </HeaderDiv>
                 <SleepCardContainer>
-                    {this.state.dummyArray.map( session => (
+                    {this.state.dataArray.map( session => (
                         <SleepCard session={session} key={session.id} />
-                    )
-                    )}
+                    ))}
                 </SleepCardContainer>
                 {/* <hr/> */}
                 <SleepForm dummyArray={this.state.dummyArray} addNewSleepCard={this.addNewSleepCard} />

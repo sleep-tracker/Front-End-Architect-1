@@ -11,13 +11,13 @@ const SleepCardStyle = styled.div`
 const SleepCard = props => {
     return (
         <SleepCardStyle>
-            <p>sleep date: {props.sleepDate}</p>
-            <p>wake date: {props.wakeDate}</p>
-            <p>bed time: {props.sleepTime}</p>
-            <p>wake time: {props.wakeTime}</p>
-            <p>mood before: {props.moodBefore}</p>
-            <p>mood after: {props.moodAfter}</p>
-            <p>mood all day: {props.moodForDay}</p>
+            <p>sleep date: {props.session.sleepDate}</p>
+            <p>wake date: {props.session.wakeDate}</p>
+            <p>bed time: {props.session.sleepTime}</p>
+            <p>wake time: {props.session.wakeTime}</p>
+            <p>mood before: {props.session.moodBefore}</p>
+            <p>mood after: {props.session.moodAfter}</p>
+            <p>mood all day: {props.session.moodForDay}</p>
         </SleepCardStyle>
     )
 }
