@@ -4,6 +4,7 @@ import './Sleep.css'
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 
+import axiosConfig from './AxiosConfig'
 
 const Smiley = styled.img`
     height: 30px;
@@ -17,6 +18,13 @@ const EnterButton = styled.button`
     height: 30px;
     font-size: 16px;
     border-radius: 5px;
+    background: green;
+    color: white;
+    margin-bottom: 30px;
+`
+const SleepFormContainer = styled.div`
+    background: #8b849c;
+    padding-top: 30px;
 `
 export default class SignupForm extends React.Component {
     constructor() {
@@ -39,14 +47,53 @@ export default class SignupForm extends React.Component {
 
     sendSleepInfo = e => {
         e.preventDefault()
-        const hoursSlept = this.state.wakeTime - this.state.bedTime
-        const sleepObj = {
-            hours: hoursSlept, tired: this.state.tiredAtBedtime,
-            moodWaking: this.state.moodWhenWaking,
-            overallMood: this.state.overallMoodForDay
+        let sleepObj = {}
+        let sleep = this.state.sleepTime
+        let wake = this.state.wakeTime
+        if(Number(sleep[0]+sleep[1])>12){
+            let hours = Number(sleep[0]+sleep[1])-12
+            if(hours < 10){
+                sleep = `0${hours}:${sleep[3]}${sleep[4]} pm`
+            }else{
+                sleep = `${hours}:${sleep[3]}${sleep[4]} pm`
+            }
+           
+        } else{
+            if(Number(sleep[0] + sleep[1]) == 0){
+                sleep = `12:${sleep[3]}${sleep[4]} am`
+            }else{
+                sleep = `${sleep} am`
+            
+            }
+            console.log(sleep)
         }
-
-        axios.post( 'https://build-week-sleep-tracker.herokuapp.com/api/users', sleepObj )
+        if(Number(wake[0]+wake[1])>12){
+            let hours = Number(wake[0]+wake[1])-12
+            if(hours < 10){
+                wake = `0${hours}:${wake[3]}${wake[4]} pm`
+            }else{
+                wake = `${hours}:${wake[3]}${wake[4]} pm`
+            }
+        //    console.log(wake)
+        } else{
+            if(Number(wake[0] + wake[1]) == 0){
+                wake = `12:${wake[3]}${wake[4]} am`
+            }else{
+                wake = `${wake} am`
+            
+            }
+            // console.log(wake)
+        }
+        sleepObj = {
+            sleepTime: sleep,
+            wakeTime: wake,
+            sleepDate: this.state.sleepDate,
+            wakeDate: this.state.wakeDate,
+            moodBefore: this.state.moodBefore,
+            moodAfter: this.state.moodAfter,
+            moodDuring: this.state.moodForDay
+        }
+        axios.post( 'https://build-week-sleep-tracker.herokuapp.com/api/users/data/add', sleepObj, axiosConfig )
             .then( res => console.log( res ) )
             .catch( err => console.log( err ) )
 
@@ -82,14 +129,14 @@ export default class SignupForm extends React.Component {
 
     render() {
         return (
-            <div className='sleepform'>
+            <SleepFormContainer>
                 <h1>New Sleep Session</h1>
-                <form onSubmit={this.addCard}>
+                <form onSubmit={this.sendSleepInfo}>
                     <p><InputLabel>Sleep Date:</InputLabel>
                         <input
                             name='sleepDate'
                             type="date"
-                            value={this.state.sleepTime}
+                            value={this.state.sleepDate}
                             onChange={this.handleChange}
                         />
                     </p>
@@ -97,13 +144,13 @@ export default class SignupForm extends React.Component {
                         <input
                             name='wakeDate'
                             type="date"
-                            value={this.state.sleepTime}
+                            value={this.state.wakeDate}
                             onChange={this.handleChange}
                         />
                     </p>
                     <p><InputLabel>Bed Time:</InputLabel>
                         <input
-                            name='bedTime'
+                            name='sleepTime'
                             type="time"
                             value={this.state.sleepTime}
                             onChange={this.handleChange}
@@ -113,58 +160,58 @@ export default class SignupForm extends React.Component {
                         <input
                             name='wakeTime'
                             type="time"
-                            value={this.state.sleepTime}
+                            value={this.state.wakeTime}
                             onChange={this.handleChange}
                         />
                     </p>
                     <p>
                         <InputLabel>Tired Rating at Bedtime:</InputLabel>
 
-                        <input type="radio" name="moodBefore" value="1" />
+                        <input type="radio" name="moodBefore" value="1" onChange = {this.handleChange} />
                         <Smiley src="../../img/1.png" alt="sad face" />
 
-                        <input type="radio" name="moodBefore" value="2" />
+                        <input type="radio" name="moodBefore" value="2" onChange = {this.handleChange}/>
                         <Smiley src="../../img/2.png" alt="neutral face" />
 
-                        <input type="radio" name="moodBefore" value="3" />
+                        <input type="radio" name="moodBefore" value="3" onChange = {this.handleChange}/>
                         <Smiley src="../../img/3.png" alt="happy face" />
 
-                        <input type="radio" name="moodBefore" value="4" />
+                        <input type="radio" name="moodBefore" value="4" onChange = {this.handleChange}/>
                         <Smiley src="../../img/4.png" alt="very happy face" />
                     </p>
                     <p>
                         <InputLabel>Mood Rating when Waking:</InputLabel>
 
-                        <input type="radio" name="moodAfter" value="1" />
+                        <input type="radio" name="moodAfter" value="1" onChange = {this.handleChange}/>
                         <Smiley src="../../img/1.png" alt="sad face" />
 
-                        <input type="radio" name="moodAfter" value="2" />
+                        <input type="radio" name="moodAfter" value="2" onChange = {this.handleChange}/>
                         <Smiley src="../../img/2.png" alt="neutral face" />
 
-                        <input type="radio" name="moodAfter" value="3" />
+                        <input type="radio" name="moodAfter" value="3" onChange = {this.handleChange}/>
                         <Smiley src="../../img/3.png" alt="happy face" />
 
-                        <input type="radio" name="moodAfter" value="4" />
+                        <input type="radio" name="moodAfter" value="4" onChange = {this.handleChange}/>
                         <Smiley src="../../img/4.png" alt="very happy face" />
                     </p>
                     <p>
                         <InputLabel>Overall Mood for the Day:</InputLabel>
 
-                        <input type="radio" name="moodForDay" value="1" />
+                        <input type="radio" name="moodForDay" value="1" onChange = {this.handleChange}/>
                         <Smiley src="../../img/1.png" alt="sad face" />
 
-                        <input type="radio" name="moodForDay" value="2" />
+                        <input type="radio" name="moodForDay" value="2" onChange = {this.handleChange}/>
                         <Smiley src="../../img/2.png" alt="neutral face" />
 
-                        <input type="radio" name="moodForDay" value="3" />
+                        <input type="radio" name="moodForDay" value="3" onChange = {this.handleChange}/>
                         <Smiley src="../../img/3.png" alt="happy face" />
 
-                        <input type="radio" name="moodForDay" value="4" />
+                        <input type="radio" name="moodForDay" value="4" onChange = {this.handleChange}/>
                         <Smiley src="../../img/4.png" alt="very happy face" />
                     </p>
                     <EnterButton type='submit'>Enter</EnterButton>
                 </form>
-            </div>
+            </SleepFormContainer>
         )
     }
 }
