@@ -17,6 +17,13 @@ const EnterButton = styled.button`
     height: 30px;
     font-size: 16px;
     border-radius: 5px;
+    background: green;
+    color: white;
+    margin-bottom: 30px;
+`
+const SleepFormContainer = styled.div`
+    background: #8b849c;
+    padding-top: 30px;
 `
 export default class SignupForm extends React.Component {
     constructor() {
@@ -46,7 +53,7 @@ export default class SignupForm extends React.Component {
             overallMood: this.state.overallMoodForDay
         }
 
-        axios.post( 'https://build-week-sleep-tracker.herokuapp.com/api/users', sleepObj )
+        axios.post( 'https://build-week-sleep-tracker.herokuapp.com/api/users/data/add', sleepObj )
             .then( res => console.log( res ) )
             .catch( err => console.log( err ) )
 
@@ -82,14 +89,14 @@ export default class SignupForm extends React.Component {
 
     render() {
         return (
-            <div className='sleepform'>
+            <SleepFormContainer>
                 <h1>New Sleep Session</h1>
                 <form onSubmit={this.addCard}>
                     <p><InputLabel>Sleep Date:</InputLabel>
                         <input
                             name='sleepDate'
                             type="date"
-                            value={this.state.sleepTime}
+                            value='1'
                             onChange={this.handleChange}
                         />
                     </p>
@@ -97,7 +104,7 @@ export default class SignupForm extends React.Component {
                         <input
                             name='wakeDate'
                             type="date"
-                            value={this.state.sleepTime}
+                            value='2'
                             onChange={this.handleChange}
                         />
                     </p>
@@ -105,7 +112,7 @@ export default class SignupForm extends React.Component {
                         <input
                             name='bedTime'
                             type="time"
-                            value={this.state.sleepTime}
+                            value='3'
                             onChange={this.handleChange}
                         />
                     </p>
@@ -113,7 +120,7 @@ export default class SignupForm extends React.Component {
                         <input
                             name='wakeTime'
                             type="time"
-                            value={this.state.sleepTime}
+                            value='4'
                             onChange={this.handleChange}
                         />
                     </p>
@@ -164,7 +171,7 @@ export default class SignupForm extends React.Component {
                     </p>
                     <EnterButton type='submit'>Enter</EnterButton>
                 </form>
-            </div>
+            </SleepFormContainer>
         )
     }
 }
