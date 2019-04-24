@@ -1,16 +1,29 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'
+import axios from 'axios'
+import './Sleep.css'
+import PropTypes from 'prop-types';
+import styled from 'styled-components'
 
+
+const Smiley = styled.img`
+    height: 30px;
+    margin-right: 20px;
+`
+const InputLabel = styled.span`
+    margin-right: 20px;
+`
 export default class SignupForm extends React.Component{
     constructor(){
         super()
 
         this.state = {
+            sleepDate: '',
+            wakeDate: '',
             bedTime: '',
             wakeTime: '',
-            tiredAtBedtime: '',
-            moodWhenWaking: '',
-            overallMoodForDay: ''
+            moodBefore: '',
+            moodAfter: '',
+            moodForDay: ''
         }
     }
 
@@ -30,54 +43,95 @@ export default class SignupForm extends React.Component{
             .catch(err => console.log(err))
 
         this.setState = {
+            sleepDate: '',
+            wakeDate: '',
             bedTime: '',
             wakeTime: '',
-            tiredAtBedtime: '',
-            moodWhenWaking: '',
-            overallMoodForDay: ''
+            moodBefore: '',
+            moodAfter: '',
+            moodForDay: ''
         }
     }
 
     render(){
         return(
-            <div>
+            <div className='sleepform'>
                 <h1>New Sleep Session</h1>
                 <form onSubmit={this.sendSleepInfo}>
-                    <p>Bed Time: 
+                    <p><InputLabel>Sleep Date:</InputLabel>
+                        <input 
+                            name='sleepDate' 
+                            type="date"
+                        />
+                    </p>
+                    <p><InputLabel>Wake Date:</InputLabel>
+                        <input 
+                            name='wakeDate' 
+                            type="date"
+                        />
+                    </p>
+                    <p><InputLabel>Bed Time:</InputLabel> 
                         <input 
                             name='bedTime' 
                             type="time"
-                            // value={this.state.username} 
-                            // onChange={this.state.username}
+                            // value={this.state.bedTime} 
+                            // onChange={}
                         />
                     </p> 
-                    <p>Wake Time: 
+                    <p><InputLabel>Wake Time:</InputLabel> 
                         <input 
                             name='wakeTime' 
                             type="time"
-                            // value={this.state.username} 
-                            // onChange={this.state.username}
+                            // value={this.state.wakeTime} 
+                            // onChange={}
                         />
                     </p>
-                    <p>Tired Rating at Bedtime: 
-                        <img src="../../img/1.png" alt="sad face"/>
-                        <img src="../../img/2.png" alt="neutral face"/>
-                        <img src="../../img/3.png" alt="happy face"/>
-                        <img src="../../img/4.png" alt="very happy face"/>
+                    <p>
+                        <InputLabel>Tired Rating at Bedtime:</InputLabel>
+
+                        <input type="radio" name="moodBefore" value="1" />
+                        <Smiley src="../../img/1.png" alt="sad face"/>
+
+                        <input type="radio" name="moodBefore" value="2" />
+                        <Smiley src="../../img/2.png" alt="neutral face"/>
+
+                        <input type="radio" name="moodBefore" value="3" />
+                        <Smiley src="../../img/3.png" alt="happy face"/>
+
+                        <input type="radio" name="moodBefore" value="4" />
+                        <Smiley src="../../img/4.png" alt="very happy face"/>
                     </p>
-                    <p>Mood Rating when Waking:
-                        <img src="../../img/1.png" alt="sad face"/>
-                        <img src="../../img/2.png" alt="neutral face"/>
-                        <img src="../../img/3.png" alt="happy face"/>
-                        <img src="../../img/4.png" alt="very happy face"/>
+                    <p>
+                        <InputLabel>Mood Rating when Waking:</InputLabel>
+
+                        <input type="radio" name="moodAfter" value="1" />
+                        <Smiley src="../../img/1.png" alt="sad face"/>
+
+                        <input type="radio" name="moodAfter" value="2" />
+                        <Smiley src="../../img/2.png" alt="neutral face"/>
+
+                        <input type="radio" name="moodAfter" value="3" />
+                        <Smiley src="../../img/3.png" alt="happy face"/>
+
+                        <input type="radio" name="moodAfter" value="4" />
+                        <Smiley src="../../img/4.png" alt="very happy face"/>
                     </p>
-                    <p>Overall Mood for the Day:
-                        <img src="../../img/1.png" alt="sad face"/>
-                        <img src="../../img/2.png" alt="neutral face"/>
-                        <img src="../../img/3.png" alt="happy face"/>
-                        <img src="../../img/4.png" alt="very happy face"/>
+                    <p>
+                        <InputLabel>Overall Mood for the Day:</InputLabel>
+
+                        <input type="radio" name="moodForDay" value="1" />
+                        <Smiley src="../../img/1.png" alt="sad face"/>
+
+                        <input type="radio" name="moodForDay" value="2" />
+                        <Smiley src="../../img/2.png" alt="neutral face"/>
+
+                        <input type="radio" name="moodForDay" value="3" />
+                        <Smiley src="../../img/3.png" alt="happy face"/>
+
+                        <input type="radio" name="moodForDay" value="4" />
+                        <Smiley src="../../img/4.png" alt="very happy face"/>
                     </p>
-                    <button>Enter</button>
+                    <button type='submit'>Enter</button>
                 </form>
             </div>
         )

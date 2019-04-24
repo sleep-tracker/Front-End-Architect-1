@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Route, Router, withRouter, NavLink } from 'react-router-dom'
 
 import axiosConfig from './AxiosConfig'
 
@@ -9,8 +10,8 @@ export default class SignupForm extends React.Component{
         email: '',
         password: '',
         name: '',
-        lastName: '',
-        age: 99
+        lastName: ''
+        // age: 99
     }
 
     handleChange = e => {
@@ -21,9 +22,11 @@ export default class SignupForm extends React.Component{
         e.preventDefault()
         console.log(this.state);
         
-        axios.post('http://localhost:5000/api/auth/register', axiosConfig, this.state)
+        axios.post('http://localhost:5000/api/auth/register', this.state)//, axiosConfig
             .then(res => console.log(res))
             .catch(err => console.log(err))
+
+        this.props.history.push("/login")
     }
 
     render(){
@@ -67,7 +70,7 @@ export default class SignupForm extends React.Component{
                                     onChange={this.handleChange} 
                                 />
                             </p>
-                    <button>Login</button>
+                    <button type='submit'>Login</button>
                 </form>
             </div>
         )
