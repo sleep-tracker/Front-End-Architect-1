@@ -1,11 +1,18 @@
 import React from 'react'
+// import axios from 'axios'
+// import axiosConfig from './AxiosConfig'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
+
 
 const SleepCardStyle = styled.div`
     border: black solid 2px;
-    width: 200px;
+    width: 230px;
     margin: 40px 0;
-    background: white;
+    background: #ccc;
+`
+const SleepCardButton = styled.button`
+    margin: 0 10px 20px 10px;
 `
 
 const SleepCard = props => {
@@ -17,9 +24,23 @@ const SleepCard = props => {
             <p>wake time: {props.session.wakeTime}</p>
             <p>mood before: {props.session.moodBefore}</p>
             <p>mood after: {props.session.moodAfter}</p>
-            <p>mood all day: {props.session.moodForDay}</p>
+            <p>mood all day: {props.session.moodDuring}</p>
+            <SleepCardButton>Update</SleepCardButton>
+            <SleepCardButton onClick={() => {props.deleteCard(props.session.id)}}>Delete</SleepCardButton>
         </SleepCardStyle>
     )
+}
+
+SleepCard.propsType = {
+    session: PropTypes.shape({
+        sleepDate: PropTypes.string,
+        wakeDate: PropTypes.string,
+        sleepTime: PropTypes.string,
+        wakeTime: PropTypes.string,
+        moodBefore: PropTypes.string,
+        moodAfter: PropTypes.string,
+        moodDuring: PropTypes.string
+    })
 }
 
 export default SleepCard

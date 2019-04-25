@@ -41,11 +41,15 @@ export default class SignupForm extends React.Component {
         }
     }
 
+    componentDidMount = () => {
+        this.setState({...this.props.sleepCardData})
+    }
+
     handleChange = e => {
         this.setState( { [e.target.name]: e.target.value } )
     }
 
-    sendSleepInfo = e => {
+    updateSleepInfo = (e, id) => {
         e.preventDefault()
         let sleepObj = {}
         let sleep = this.state.sleepTime
@@ -93,7 +97,7 @@ export default class SignupForm extends React.Component {
             moodAfter: this.state.moodAfter,
             moodDuring: this.state.moodDuring
         }
-        axios.post( 'https://build-week-sleep-tracker.herokuapp.com/api/users/data/add', sleepObj, axiosConfig )
+        axios.post( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/edit/${this.props.sleepCardData.id}`, sleepObj, axiosConfig )
             .then( res => console.log( res ) )
             .catch( err => console.log( err ) )
 
