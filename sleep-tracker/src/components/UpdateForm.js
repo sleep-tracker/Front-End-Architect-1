@@ -97,7 +97,7 @@ export default class SignupForm extends React.Component {
             moodAfter: this.state.moodAfter,
             moodDuring: this.state.moodDuring
         }
-        axios.post( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/edit/${this.props.sleepCardData.id}`, sleepObj, axiosConfig )
+        axios.patch( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/edit/${this.props.sleepCardData.id}`, sleepObj, axiosConfig )
             .then( res => console.log( res ) )
             .catch( err => console.log( err ) )
 
