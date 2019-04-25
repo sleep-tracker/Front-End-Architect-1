@@ -37,7 +37,7 @@ export default class SignupForm extends React.Component {
             wakeTime: '',
             moodBefore: '',
             moodAfter: '',
-            moodForDay: ''
+            moodDuring: ''
         }
     }
 
@@ -91,7 +91,7 @@ export default class SignupForm extends React.Component {
             wakeDate: this.state.wakeDate,
             moodBefore: this.state.moodBefore,
             moodAfter: this.state.moodAfter,
-            moodForDay: this.state.moodForDay
+            moodDuring: this.state.moodDuring
         }
         axios.post( 'https://build-week-sleep-tracker.herokuapp.com/api/users/data/add', sleepObj, axiosConfig )
             .then( res => console.log( res ) )
@@ -104,23 +104,9 @@ export default class SignupForm extends React.Component {
             wakeTime: '',
             moodBefore: '',
             moodAfter: '',
-            moodForDay: ''
+            moodDuring: ''
         }
     }
-
-    // addCard = e => {
-    //     e.preventDefault()
-    //     this.props.addNewSleepCard( this.state )
-    //     this.setState = {
-    //         sleepDate: '',
-    //         wakeDate: '',
-    //         sleepTime: '',
-    //         wakeTime: '',
-    //         moodBefore: '',
-    //         moodAfter: '',
-    //         moodForDay: ''
-    //     }
-    // }
 
     handleChange = e => {
         this.setState( { [e.target.name]: e.target.value } )
@@ -197,16 +183,16 @@ export default class SignupForm extends React.Component {
                     <p>
                         <InputLabel>Overall Mood for the Day:</InputLabel>
 
-                        <input type="radio" name="moodForDay" value="1" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="1" onChange = {this.handleChange}/>
                         <Smiley src="../../img/1.png" alt="sad face" />
 
-                        <input type="radio" name="moodForDay" value="2" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="2" onChange = {this.handleChange}/>
                         <Smiley src="../../img/2.png" alt="neutral face" />
 
-                        <input type="radio" name="moodForDay" value="3" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="3" onChange = {this.handleChange}/>
                         <Smiley src="../../img/3.png" alt="happy face" />
 
-                        <input type="radio" name="moodForDay" value="4" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="4" onChange = {this.handleChange}/>
                         <Smiley src="../../img/4.png" alt="very happy face" />
                     </p>
                     <EnterButton type='submit'>Enter</EnterButton>

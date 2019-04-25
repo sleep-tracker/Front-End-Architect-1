@@ -39,7 +39,7 @@ class SleepList extends Component {
             .then( res => {
                 console.log(res);
                 
-                this.setState( { dataArray: res.data, dummyArray: dummyData } )//res.data[0].data
+                this.setState( { dataArray: res.data[0].data, dummyArray: dummyData } )//res.data[0].data
             } )
             .catch( err => { console.error( err ) } )
     }
