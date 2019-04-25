@@ -44,11 +44,11 @@ class SleepList extends Component {
             .catch( err => { console.error( err ) } )
     }
 
-    // addNewSleepCard = newCard => {
-    //     const newUserArray = this.state.userArray
-    //     newUserArray.push(newCard)
-    //     this.setState({userArray: newUserArray})
-    // }
+    deleteCard = id => {
+        axios.delete( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/delete/${id}` )
+                .then( res => console.log( res ) )
+                .catch( err => console.log( err ) )
+    }
 
     render() {
         console.log(this.state.dataArray);
@@ -60,8 +60,8 @@ class SleepList extends Component {
                 <h1>List of Sleep Data for the Week</h1>
                 </HeaderDiv>
                 <SleepCardContainer>
-                    {this.state.dataArray.map( session => (
-                        <SleepCard session={session} key={session.id} />
+                    {this.state.dataArray.map( (session, index) => (
+                        <SleepCard session={session} key={session.id} index={index} deleteCard={this.deleteCard} />
                     ))}
                 </SleepCardContainer>
                 {/* <hr/> */}

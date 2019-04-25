@@ -1,6 +1,6 @@
 import React from 'react'
-import axios from 'axios'
-import axiosConfig from './AxiosConfig'
+// import axios from 'axios'
+// import axiosConfig from './AxiosConfig'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -15,12 +15,6 @@ const SleepCardButton = styled.button`
     margin: 0 10px 20px 10px;
 `
 
-const deleteCard = sleepObj => {
-    axios.post( 'https://build-week-sleep-tracker.herokuapp.com/api/users/data/add', sleepObj, axiosConfig )
-            .then( res => console.log( res ) )
-            .catch( err => console.log( err ) )
-}
-
 const SleepCard = props => {
     return (
         <SleepCardStyle>
@@ -31,7 +25,8 @@ const SleepCard = props => {
             <p>mood before: {props.session.moodBefore}</p>
             <p>mood after: {props.session.moodAfter}</p>
             <p>mood all day: {props.session.moodDuring}</p>
-            <SleepCardButton>Update</SleepCardButton><SleepCardButton>Delete</SleepCardButton>
+            <SleepCardButton>Update</SleepCardButton>
+            <SleepCardButton onClick={() => {props.deleteCard(props.session.id)}}>Delete</SleepCardButton>
         </SleepCardStyle>
     )
 }
