@@ -119,7 +119,7 @@ export default class UpdateForm extends React.Component {
             moodDuring: ''
         }
 
-        this.props.history.push( "/updateform" )
+        this.props.history.push( "/sleepview" )
     }
 
     handleChange = e => {
