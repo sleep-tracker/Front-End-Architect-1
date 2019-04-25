@@ -61,7 +61,7 @@ class SleepList extends Component {
                 </HeaderDiv>
                 <SleepCardContainer>
                     {this.state.dataArray.map( (session, index) => (
-                        <SleepCard session={session} key={session.id} index={index} deleteCard={this.deleteCard} />
+                        <SleepCard {...this.props} session={session} key={session.id} index={index} deleteCard={this.deleteCard} />
                     ))}
                 </SleepCardContainer>
                 {/* <hr/> */}

@@ -26,7 +26,7 @@ const SleepFormContainer = styled.div`
     background: #8b849c;
     padding-top: 30px;
 `
-export default class SignupForm extends React.Component {
+export default class UpdateForm extends React.Component {
     constructor() {
         super()
 
@@ -42,14 +42,18 @@ export default class SignupForm extends React.Component {
     }
 
     componentDidMount = () => {
-        this.setState({...this.props.sleepCardData})
+        axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users', axiosConfig )
+            .then( res => {
+                this.setState( { ...res.data[0].data } )
+            } )
+            .catch( err => { console.error( err ) } )
     }
 
     handleChange = e => {
         this.setState( { [e.target.name]: e.target.value } )
     }
 
-    updateSleepInfo = (e, id) => {
+    updateSleepInfo = (e) => {
         e.preventDefault()
         let sleepObj = {}
         let sleep = this.state.sleepTime
@@ -110,6 +114,8 @@ export default class SignupForm extends React.Component {
             moodAfter: '',
             moodDuring: ''
         }
+
+        this.props.history.push( "/updateform" )
     }
 
     handleChange = e => {
@@ -120,8 +126,8 @@ export default class SignupForm extends React.Component {
     render() {
         return (
             <SleepFormContainer>
-                <h1>New Sleep Session</h1>
-                <form onSubmit={this.sendSleepInfo}>
+                <h1>Update Sleep Session</h1>
+                <form onSubmit={this.updateSleepInfo}>
                     <p><InputLabel>Sleep Date:</InputLabel>
                         <input
                             name='sleepDate'
