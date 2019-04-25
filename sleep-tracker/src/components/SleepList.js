@@ -31,7 +31,8 @@ class SleepList extends Component {
 
         this.state = {
             dataArray: [],
-            dummyArray: []
+            dummyArray: [],
+            sleepAverage: 0
         }
     }
     componentDidMount() {
@@ -42,6 +43,10 @@ class SleepList extends Component {
                 this.setState( { dataArray: res.data[0].data, dummyArray: dummyData } )//res.data[0].data
             } )
             .catch( err => { console.error( err ) } )
+
+            // axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users/average', axiosConfig )
+            // .then( res => { this.setState( { sleepAverage: res.data } )} )
+            // .catch( err => { console.error( err ) } )
     }
 
     deleteCard = id => {
@@ -57,11 +62,11 @@ class SleepList extends Component {
             <div>
                 <HeaderDiv>
                 {/* <NavLink to='/sleepform'>Log New Sleep Session</NavLink> */}
-                <h1>List of Sleep Data for the Week</h1>
+                <h1>Your Sleep Average So Far is: {this.state.sleepAverage} hours</h1>
                 </HeaderDiv>
                 <SleepCardContainer>
                     {this.state.dataArray.map( (session, index) => (
-                        <SleepCard {...this.props} session={session} index={index} deleteCard={this.deleteCard} />
+                        <SleepCard {...this.props} session={session} key={session.id} index={index} deleteCard={this.deleteCard} />
                     ))}
                 </SleepCardContainer>
                 {/* <hr/> */}
