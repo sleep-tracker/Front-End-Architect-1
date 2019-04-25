@@ -105,7 +105,7 @@ export default class UpdateForm extends React.Component {
             moodAfter: this.state.moodAfter,
             moodDuring: this.state.moodDuring
         }
-        axios.patch( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/edit/${this.props.sleepCardData.id}`, sleepObj, axiosConfig )
+        axios.patch( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/edit/${this.props.match.params.id}`, sleepObj, axiosConfig )
             .then( res => console.log( res ) )
             .catch( err => console.log( err ) )
 
