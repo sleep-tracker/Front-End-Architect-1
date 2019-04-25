@@ -18,6 +18,7 @@ const SleepCard = props => {
             <p>mood before: {props.session.moodBefore}</p>
             <p>mood after: {props.session.moodAfter}</p>
             <p>mood all day: {props.session.moodForDay}</p>
+            <button>Update</button><button>Delete</button>
         </SleepCardStyle>
     )
 }

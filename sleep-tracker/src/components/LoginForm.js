@@ -1,8 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components'
+import axiosConfig from './AxiosConfig'
 // import { Route, Router, withRouter, NavLink } from 'react-router-dom'
 
-import axiosConfig from './AxiosConfig'
+
+
+const LoginFormContainer = styled.div`
+    background: #8b849c;
+`
 
 class LoginForm extends React.Component{
     constructor(){
@@ -32,7 +38,7 @@ class LoginForm extends React.Component{
 
     render(){
         return(
-            <div>
+            <LoginFormContainer>
                 <form onSubmit={this.login}>
                     <input 
                         name='email' 
@@ -48,7 +54,7 @@ class LoginForm extends React.Component{
                     />
                     <button type='submit'>submit</button>
                 </form>
-            </div>
+            </LoginFormContainer>
         )
     }
 

@@ -1,8 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { Route, Router, withRouter, NavLink } from 'react-router-dom'
+// import { Route, Router, withRouter, NavLink } from 'react-router-dom'
+// import axiosConfig from './AxiosConfig'
+import styled from 'styled-components'
 
-import axiosConfig from './AxiosConfig'
+
+const SignupFormContainer = styled.div`
+    background: #8b849c;
+    padding: 40px 0;
+`
 
 export default class SignupForm extends React.Component{
 
@@ -31,7 +37,7 @@ export default class SignupForm extends React.Component{
 
     render(){
         return(
-            <div>
+            <SignupFormContainer>
                 <h1>Sign In</h1>
                 
                 <form onSubmit={this.login}>
@@ -72,7 +78,7 @@ export default class SignupForm extends React.Component{
                             </p>
                     <button type='submit'>Login</button>
                 </form>
-            </div>
+            </SignupFormContainer>
         )
     }
 }

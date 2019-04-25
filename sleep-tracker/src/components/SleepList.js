@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+// import { NavLink } from 'react-router-dom'
 import axios from 'axios';
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import styled from 'styled-components'
 // import SleepSession from './SleepSession'
 
@@ -39,21 +39,19 @@ class SleepList extends Component {
             .then( res => {
                 console.log(res);
                 
-                this.setState( { dataArray: res.data[0].data, dummyArray: dummyData } )
+                this.setState( { dataArray: res.data, dummyArray: dummyData } )//res.data[0].data
             } )
             .catch( err => { console.error( err ) } )
     }
 
-    addNewSleepCard = newCard => {
-        const newUserArray = this.state.userArray
-        newUserArray.push(newCard)
-        this.setState({userArray: newUserArray})
-    }
+    // addNewSleepCard = newCard => {
+    //     const newUserArray = this.state.userArray
+    //     newUserArray.push(newCard)
+    //     this.setState({userArray: newUserArray})
+    // }
 
     render() {
         console.log(this.state.dataArray);
-        console.log(this.state.sleepSessions);
-        
         
         return (
             <div>
@@ -67,7 +65,7 @@ class SleepList extends Component {
                     ))}
                 </SleepCardContainer>
                 {/* <hr/> */}
-                <SleepForm dummyArray={this.state.dummyArray} addNewSleepCard={this.addNewSleepCard} />
+                <SleepForm dummyArray={this.state.dataArray} />
             </div>
         )
     }

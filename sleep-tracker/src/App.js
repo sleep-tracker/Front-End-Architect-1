@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom';
-import axios from 'axios'
+import { Route, withRouter } from 'react-router-dom';
+// import axios from 'axios'
 import './App.css';
 
 import SignupForm from './components/SignupForm'
