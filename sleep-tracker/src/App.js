@@ -33,7 +33,8 @@ class App extends Component {
 
                 <PrivateRoute exact path='/whysleep' component={WhySleep} />
 
-                <PrivateRoute exact path='/updateform' component={UpdateForm} />
+                {/* <PrivateRoute exact path='/updateform/:id' component={UpdateForm} /> */}
+                <PrivateRoute exact path='/updateform/:id' render={props => <UpdateForm {...props} /> } />
             </div>
         )
     }

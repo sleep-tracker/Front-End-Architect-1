@@ -25,11 +25,12 @@ const SleepCard = props => {
             <p>mood before: {props.session.moodBefore}</p>
             <p>mood after: {props.session.moodAfter}</p>
             <p>mood all day: {props.session.moodDuring}</p>
-            <SleepCardButton onClick={() => {props.setCardForUpdate(props.session.id); props.history.push( "/updateform" )}}>Update</SleepCardButton>
+            <SleepCardButton onClick={() => {props.history.push( `/updateform/${props.session.id}` )}}>Update</SleepCardButton>
             <SleepCardButton onClick={() => {props.deleteCard(props.session.id)}}>Delete</SleepCardButton>
         </SleepCardStyle>
     )
 }
+            // {props.setCardForUpdate(props.session.id); props.history.push( "/updateform" )}}
 
 SleepCard.propsType = {
     session: PropTypes.shape({

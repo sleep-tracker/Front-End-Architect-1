@@ -42,11 +42,16 @@ export default class UpdateForm extends React.Component {
     }
 
     componentDidMount = () => {
+        let allSleepDataArray = []
         axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users', axiosConfig )
             .then( res => {
-                this.setState( { ...res.data[0].data } )
+                allSleepDataArray = res.data[0].data
             } )
             .catch( err => { console.error( err ) } )
+
+            const sleepDataObject = allSleepDataArray.find(x => x.id == this.props.match.params.id)
+
+            this.setState({...sleepDataObject})
     }
 
     handleChange = e => {
@@ -88,7 +93,6 @@ export default class UpdateForm extends React.Component {
                 wake = `12:${wake[3]}${wake[4]} am`
             }else{
                 wake = `${wake} am`
-            
             }
             // console.log(wake)
         }
