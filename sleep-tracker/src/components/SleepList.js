@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-// import { NavLink } from 'react-router-dom'
 import axios from 'axios';
-// import PropTypes from 'prop-types'
 import styled from 'styled-components'
-// import SleepSession from './SleepSession'
 
-import {dummyData} from '../dummydata'
 import SleepForm from './SleepForm'
 import SleepCard from './SleepCard'
 
@@ -31,47 +27,48 @@ class SleepList extends Component {
 
         this.state = {
             dataArray: [],
-            dummyArray: [],
             sleepAverage: {}
         }
     }
     componentDidMount() {
+        let possibleArray
         axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users', axiosConfig )
             .then( res => {
-                console.log(res);
-                
-                this.setState( { dataArray: res.data[0].data, dummyArray: dummyData } )//res.data[0].data
+                console.log( res )
+                possibleArray = res.data[0].data
             } )
             .catch( err => { console.error( err ) } )
 
-            axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users/average', axiosConfig )
+        if ( possibleArray ) {
+            this.setState( { dataArray: possibleArray } )
+        }
+
+        axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users/average', axiosConfig )
             // .then(res => console.log(res.data))
-            .then( res => { this.setState( { sleepAverage: res.data } )} )
+            .then( res => { this.setState( { sleepAverage: res.data } ) } )
             .catch( err => { console.error( err ) } )
     }
 
     deleteCard = id => {
-        axios.delete( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/delete/${id}` )
-                .then( res => console.log( res ) )
-                .catch( err => console.log( err ) )
+        axios.delete( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/delete/${ id }` )
+            .then( res => console.log( res ) )
+            .catch( err => console.log( err ) )
     }
 
     render() {
-        console.log(this.state.dataArray);
-        
+        console.log( this.state.dataArray );
+
         return (
             <div>
                 <HeaderDiv>
-                {/* <NavLink to='/sleepform'>Log New Sleep Session</NavLink> */}
-                <h1>{this.state.sleepAverage.bestSleep} hours</h1>
+                    <h1>{this.state.sleepAverage.bestSleep} hours</h1>
                 </HeaderDiv>
                 <SleepCardContainer>
-                    {this.state.dataArray.map( (session, index) => (
+                    {this.state.dataArray.map( ( session, index ) => (
                         <SleepCard {...this.props} session={session} key={session.id} index={index} deleteCard={this.deleteCard} />
-                    ))}
+                    ) )}
                 </SleepCardContainer>
-                {/* <hr/> */}
-                <SleepForm dummyArray={this.state.dataArray} />
+                <SleepForm />
             </div>
         )
     }

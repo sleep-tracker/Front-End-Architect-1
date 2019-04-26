@@ -6,7 +6,6 @@ import './App.css';
 import SignupForm from './components/SignupForm'
 import SleepForm from './components/SleepForm'
 import SleepList from './components/SleepList'
-import WhySleep from './components/WhySleep'
 import PrivateRoute from './components/PrivateRoute'
 import LoginForm from './components/LoginForm';
 import UpdateForm from './components/UpdateForm'
@@ -31,9 +30,6 @@ class App extends Component {
 
                 <PrivateRoute exact path='/sleepview' component={SleepList }/>
 
-                <PrivateRoute exact path='/whysleep' component={WhySleep} />
-
-                {/* <PrivateRoute exact path='/updateform/:id' component={UpdateForm} /> */}
                 <PrivateRoute exact path='/updateform/:id' component = {UpdateForm} />
             </div>
         )
