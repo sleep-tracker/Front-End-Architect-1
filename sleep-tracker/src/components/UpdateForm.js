@@ -1,7 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import './Sleep.css'
-// import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import axiosConfig from './AxiosConfig'
@@ -26,7 +24,7 @@ const SleepFormContainer = styled.div`
     background: #8b849c;
     padding-top: 30px;
 `
-export default class SignupForm extends React.Component {
+export default class UpdateForm extends React.Component {
     constructor() {
         super()
 
@@ -42,49 +40,57 @@ export default class SignupForm extends React.Component {
     }
 
     componentDidMount = () => {
-        this.setState({...this.props.sleepCardData})
+        let allSleepDataArray = []
+        axios.get( 'https://build-week-sleep-tracker.herokuapp.com/api/users', axiosConfig )
+            .then( res => {
+                allSleepDataArray = res.data[0].data
+            } )
+            .catch( err => { console.error( err ) } )
+
+        const sleepDataObject = allSleepDataArray.find( x => x.id == this.props.match.params.id )
+
+        this.setState( { ...sleepDataObject } )
     }
 
     handleChange = e => {
         this.setState( { [e.target.name]: e.target.value } )
     }
 
-    updateSleepInfo = (e, id) => {
+    updateSleepInfo = ( e ) => {
         e.preventDefault()
         let sleepObj = {}
         let sleep = this.state.sleepTime
         let wake = this.state.wakeTime
-        if(Number(sleep[0]+sleep[1])>12){
-            let hours = Number(sleep[0]+sleep[1])-12
-            if(hours < 10){
-                sleep = `0${hours}:${sleep[3]}${sleep[4]} pm`
-            }else{
-                sleep = `${hours}:${sleep[3]}${sleep[4]} pm`
+        if ( Number( sleep[0] + sleep[1] ) > 12 ) {
+            let hours = Number( sleep[0] + sleep[1] ) - 12
+            if ( hours < 10 ) {
+                sleep = `0${ hours }:${ sleep[3] }${ sleep[4] } pm`
+            } else {
+                sleep = `${ hours }:${ sleep[3] }${ sleep[4] } pm`
             }
-           
-        } else{
-            if(Number(sleep[0] + sleep[1]) == 0){
-                sleep = `12:${sleep[3]}${sleep[4]} am`
-            }else{
-                sleep = `${sleep} am`
-            
+
+        } else {
+            if ( Number( sleep[0] + sleep[1] ) == 0 ) {
+                sleep = `12:${ sleep[3] }${ sleep[4] } am`
+            } else {
+                sleep = `${ sleep } am`
+
             }
             // console.log(sleep)
         }
-        if(Number(wake[0]+wake[1])>12){
-            let hours = Number(wake[0]+wake[1])-12
-            if(hours < 10){
-                wake = `0${hours}:${wake[3]}${wake[4]} pm`
-            }else{
-                wake = `${hours}:${wake[3]}${wake[4]} pm`
+        if ( Number( wake[0] + wake[1] ) > 12 ) {
+            let hours = Number( wake[0] + wake[1] ) - 12
+            if ( hours < 10 ) {
+                wake = `0${ hours }:${ wake[3] }${ wake[4] } pm`
+            } else {
+                wake = `${ hours }:${ wake[3] }${ wake[4] } pm`
             }
-        //    console.log(wake)
-        } else{
-            if(Number(wake[0] + wake[1]) == 0){
-                wake = `12:${wake[3]}${wake[4]} am`
-            }else{
-                wake = `${wake} am`
-            
+            //    console.log(wake)
+        } else {
+            if ( Number( wake[0] + wake[1] ) == 0 ) {
+                wake = `12:${ wake[3] }${ wake[4] } am`
+            } else {
+                wake = `${ wake } am`
             }
             // console.log(wake)
         }
@@ -97,7 +103,7 @@ export default class SignupForm extends React.Component {
             moodAfter: this.state.moodAfter,
             moodDuring: this.state.moodDuring
         }
-        axios.post( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/edit/${this.props.sleepCardData.id}`, sleepObj, axiosConfig )
+        axios.patch( `https://build-week-sleep-tracker.herokuapp.com/api/users/data/edit/${ this.props.match.params.id }`, sleepObj, axiosConfig )
             .then( res => console.log( res ) )
             .catch( err => console.log( err ) )
 
@@ -110,6 +116,8 @@ export default class SignupForm extends React.Component {
             moodAfter: '',
             moodDuring: ''
         }
+
+        this.props.history.push( "/sleepview" )
     }
 
     handleChange = e => {
@@ -120,8 +128,8 @@ export default class SignupForm extends React.Component {
     render() {
         return (
             <SleepFormContainer>
-                <h1>New Sleep Session</h1>
-                <form onSubmit={this.sendSleepInfo}>
+                <h1>Update Sleep Session</h1>
+                <form onSubmit={this.updateSleepInfo}>
                     <p><InputLabel>Sleep Date:</InputLabel>
                         <input
                             name='sleepDate'
@@ -157,46 +165,46 @@ export default class SignupForm extends React.Component {
                     <p>
                         <InputLabel>Tired Rating at Bedtime:</InputLabel>
 
-                        <input type="radio" name="moodBefore" value="1" onChange = {this.handleChange} />
+                        <input type="radio" name="moodBefore" value="1" onChange={this.handleChange} />
                         <Smiley src="../../img/1.png" alt="sad face" />
 
-                        <input type="radio" name="moodBefore" value="2" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodBefore" value="2" onChange={this.handleChange} />
                         <Smiley src="../../img/2.png" alt="neutral face" />
 
-                        <input type="radio" name="moodBefore" value="3" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodBefore" value="3" onChange={this.handleChange} />
                         <Smiley src="../../img/3.png" alt="happy face" />
 
-                        <input type="radio" name="moodBefore" value="4" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodBefore" value="4" onChange={this.handleChange} />
                         <Smiley src="../../img/4.png" alt="very happy face" />
                     </p>
                     <p>
                         <InputLabel>Mood Rating when Waking:</InputLabel>
 
-                        <input type="radio" name="moodAfter" value="1" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodAfter" value="1" onChange={this.handleChange} />
                         <Smiley src="../../img/1.png" alt="sad face" />
 
-                        <input type="radio" name="moodAfter" value="2" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodAfter" value="2" onChange={this.handleChange} />
                         <Smiley src="../../img/2.png" alt="neutral face" />
 
-                        <input type="radio" name="moodAfter" value="3" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodAfter" value="3" onChange={this.handleChange} />
                         <Smiley src="../../img/3.png" alt="happy face" />
 
-                        <input type="radio" name="moodAfter" value="4" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodAfter" value="4" onChange={this.handleChange} />
                         <Smiley src="../../img/4.png" alt="very happy face" />
                     </p>
                     <p>
                         <InputLabel>Overall Mood for the Day:</InputLabel>
 
-                        <input type="radio" name="moodDuring" value="1" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="1" onChange={this.handleChange} />
                         <Smiley src="../../img/1.png" alt="sad face" />
 
-                        <input type="radio" name="moodDuring" value="2" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="2" onChange={this.handleChange} />
                         <Smiley src="../../img/2.png" alt="neutral face" />
 
-                        <input type="radio" name="moodDuring" value="3" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="3" onChange={this.handleChange} />
                         <Smiley src="../../img/3.png" alt="happy face" />
 
-                        <input type="radio" name="moodDuring" value="4" onChange = {this.handleChange}/>
+                        <input type="radio" name="moodDuring" value="4" onChange={this.handleChange} />
                         <Smiley src="../../img/4.png" alt="very happy face" />
                     </p>
                     <EnterButton type='submit'>Enter</EnterButton>
